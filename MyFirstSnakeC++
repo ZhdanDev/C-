@@ -1,0 +1,249 @@
+#include"Header.h"
+#include"Windows.h"
+#include <iostream>
+#include <string> 
+#include <cstdlib>
+
+#include <stdio.h>
+#include <ctime>
+#include <stdio.h>
+#include <conio.h>
+#define clear system("cls") 
+
+using namespace std;
+int width = 25;
+int height = 20;
+
+bool gameOver;
+int x, y, fruitX, fruitY,score;
+int tail = 0;
+int Xtail = x;
+int Ytail = y + tail;
+int Xtail1 = x;
+int Ytail1 = y + tail;
+int Xtail2 = x;
+int Ytail2 = y + tail;
+int Xtail3 = x;
+int Ytail3 = y + tail;
+
+
+void logic() {
+	if (fruitX == x && fruitY == y) {
+		fruitX = rand() % width;
+		fruitY = rand() % height;
+		tail++;
+		score++;
+	}
+}
+
+
+void input() {
+	char move = _getch();
+	switch (move)
+	{
+	case 'w':
+		Ytail = y + 1;
+		Ytail1 = y + 2;
+		Ytail2 = y + 3;
+		Ytail3 = y + 4;
+		Xtail = x;
+		Xtail1 = x;
+		Xtail2 = x;
+		Xtail3 = x;
+		y--;
+		Ytail--;
+		Ytail1--;
+		Ytail2--;
+		Ytail3--;
+
+		break;
+	case 's':
+		Ytail = y - 1;
+		Ytail1 = y - 2;
+		Ytail2 = y - 3;
+		Ytail3 = y - 4;
+		Xtail = x;
+		Xtail1 = x;
+		Xtail2 = x;
+		Xtail3 = x;
+		y++;
+		Ytail++;
+		Ytail1++;
+		Ytail2++;
+		Ytail3++;
+		break;
+	case 'a':
+		Ytail = y;
+		Ytail1 = y;
+		Ytail2 = y;
+		Ytail3 = y;
+		Xtail = x + 1;
+		Xtail1 = x + 2;
+		Xtail2 = x + 3;
+		Xtail3 = x + 4;
+		x--;
+		Xtail3--;
+		Xtail2--;
+		Xtail1--;
+		Xtail--;
+		break;
+	case 'd':
+		Ytail = y;
+		Ytail1 = y;
+		Ytail2 = y;
+		Ytail3 = y;
+		Xtail = x - 1;
+		Xtail1 = x - 2;
+		Xtail2 = x - 3;
+		Xtail3 = x - 4;
+		x++;
+		Xtail1++;
+		Xtail3++;
+		Xtail2++;
+		Xtail++;
+		break;
+	default:
+		break;
+	}
+
+
+}
+
+void Setup() {
+
+	srand(time(NULL));
+
+	gameOver = false;
+
+	x = width / 2;
+	y = height / 2;
+
+	fruitX = rand() % width;
+	fruitY = rand() % height;
+
+	score = 0;
+	tail = 0;
+	Xtail = x;
+	Ytail = y+tail+1;
+	Xtail1 = x;
+	Ytail1= y + tail+2;
+	Xtail2 = x;
+	Ytail2 = y + tail+3;
+	Xtail3 = x;
+	Ytail3 = y + tail+4;
+}
+
+void draw() {
+	
+	clear;
+	
+	for (int i = 0; i < height; i++)
+	{
+		if (i == 0)
+		{
+			for (int j = 0; j < width+2; j++)
+			{
+				cout << "#";
+				
+			}
+			cout << endl;
+		}
+		
+		
+			cout << "#";
+			for (int t = 0; t < width; t++)
+			{
+				cout << " ";
+				if (i == y && t == x) {
+					cout << "@";
+				}
+				
+				else if (i == fruitY && t == fruitX) {
+					cout << "X";
+					
+				}
+
+				if (tail == 1) {
+					if (i == Ytail && t == Xtail) {
+						cout << "o";
+					}
+				}
+				else if(tail == 2) {
+					if (i == Ytail && t == Xtail) {
+						cout << "o";
+					}if (i == Ytail1 && t == Xtail1) {
+						cout << "o";
+					}
+				}
+				else if (tail == 3) {
+					if (i == Ytail && t == Xtail) {
+						cout << "o";
+					}if (i == Ytail1 && t == Xtail1) {
+						cout << "o";
+					}if (i == Ytail2 && t == Xtail2) {
+						cout << "o";
+					}
+				}
+				else if (tail == 3) {
+					if (i == Ytail && t == Xtail) {
+						cout << "o";
+					}if (i == Ytail1 && t == Xtail1) {
+						cout << "o";
+					}if (i == Ytail2 && t == Xtail2) {
+						cout << "o";
+					}if (i == Ytail3 && t == Xtail3) {
+						cout << "o";
+					}
+				}
+				else if (tail > 3) {
+					if (i == Ytail && t == Xtail) {
+						cout << "o";
+					}if (i == Ytail1 && t == Xtail1) {
+						cout << "o";
+					}if (i == Ytail2 && t == Xtail2) {
+						cout << "o";
+					}if (i == Ytail3 && t == Xtail3) {
+						cout << "o";
+					}
+				}
+			}
+			cout << "#" << endl;
+			
+		
+
+		if (i == height-1) {
+			for (int j = 0; j < width+2; j++)
+			{
+				cout << "#";
+				
+			}
+		}
+
+
+		if (i == height - 1) {
+			cout << endl;
+			cout << endl;
+			cout << endl;
+			cout << "Score : " <<score;
+		}
+	}
+
+
+
+
+}
+int main() {
+	system("color 2");
+	Setup();
+	while (true) {
+
+		logic();
+		draw();
+		input();
+
+		
+
+		
+	}
+	
+}
